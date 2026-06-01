@@ -1,28 +1,42 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEB</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DataHub — JSONPlaceholder Explorer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-    <header>
-        <h1>Dinamismo na WEB</h1>
-    </header>
 
-    <main>
-        <section>
-            <h2>Usuários</h2>
-            
-            <div>
+<header>
+  <div class="logo">Data<span>Hub</span></div>
+  <div class="status-bar">
+    <div class="dot"></div>
+    <span>JSONPlaceholder API</span>
+  </div>
+</header>
 
-            </div>
+<div class="container">
 
-        </section>
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('posts', this)">📄 Posts</button>
+    <button class="tab-btn" onclick="switchTab('users', this)">👤 Usuários</button>
+  </div>
 
-        <section>
-            <h2>Posts</h2>
+  <!-- ══ POSTS TAB ══ -->
+  <div id="tab-posts" class="tab-panel active">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total de Posts</div>
+        <div class="stat-value" id="stat-posts">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Adicionados</div>
+        <div class="stat-value" id="stat-added" style="color:var(--green)">0</div>
+      </div>
+    </div>
 
             <div>
                 
