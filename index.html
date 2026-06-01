@@ -17,17 +17,116 @@
   </div>
 </header>
 
-    <main>
-        <section>
-            <h2>Usuários</h2>
-            <h1>Bem-vindo ao Dinamismo na WEB, made with ❤️ </h1>
-        </section>
+<div class="container">
 
-        <section>
-            <h2>Posts</h2>
-        </section>
-    </main>
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('posts', this)">📄 Posts</button>
+    <button class="tab-btn" onclick="switchTab('users', this)">👤 Usuários</button>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- ══ POSTS TAB ══ -->
+  <div id="tab-posts" class="tab-panel active">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total de Posts</div>
+        <div class="stat-value" id="stat-posts">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Adicionados</div>
+        <div class="stat-value" id="stat-added" style="color:var(--green)">0</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Posts <small>GET /posts</small></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <input type="text" class="search-box" id="search-posts" placeholder="🔍  Buscar posts..." oninput="filterPosts()"/>
+        <button class="btn btn-primary" onclick="openModal('add-post')">+ Novo Post</button>
+        <button class="btn btn-success" onclick="fetchPosts()">↺ Recarregar</button>
+      </div>
+    </div>
+
+    <div id="posts-list"><div class="loader"><div class="spinner"></div><span>Carregando posts…</span></div></div>
+  </div>
+
+  <!-- ══ USERS TAB ══ -->
+  <div id="tab-users" class="tab-panel">
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total de Usuários</div>
+        <div class="stat-value" id="stat-users">—</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-title">Usuários <small>GET /users</small></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <input type="text" class="search-box" id="search-users" placeholder="🔍  Buscar usuários..." oninput="filterUsers()"/>
+        <button class="btn btn-primary" onclick="openModal('add-user')">+ Novo Usuário</button>
+        <button class="btn btn-success" onclick="fetchUsers()">↺ Recarregar</button>
+      </div>
+    </div>
+
+    <div id="users-list"><div class="loader"><div class="spinner"></div><span>Carregando usuários…</span></div></div>
+  </div>
+</div>
+
+<!-- ══ MODAL ADD/EDIT POST ══ -->
+<div class="modal-overlay" id="modal-add-post">
+  <div class="modal">
+    <div class="modal-title" id="modal-post-title">Novo Post</div>
+    <div class="field">
+      <label>Usuário (ID)</label>
+      <select id="post-userId"></select>
+    </div>
+    <div class="field">
+      <label>Título *</label>
+      <input type="text" id="post-title" placeholder="Título do post"/>
+    </div>
+    <div class="field">
+      <label>Corpo *</label>
+      <textarea id="post-body" placeholder="Conteúdo do post…"></textarea>
+    </div>
+    <input type="hidden" id="post-edit-id"/>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('add-post')" style="color:var(--muted)">Cancelar</button>
+      <button class="btn btn-primary" onclick="savePost()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL ADD/EDIT USER ══ -->
+<div class="modal-overlay" id="modal-add-user">
+  <div class="modal">
+    <div class="modal-title" id="modal-user-title">Novo Usuário</div>
+    <div class="field">
+      <label>Nome *</label>
+      <input type="text" id="user-name" placeholder="Nome completo"/>
+    </div>
+    <div class="field">
+      <label>Username *</label>
+      <input type="text" id="user-username" placeholder="@username"/>
+    </div>
+    <div class="field">
+      <label>E-mail *</label>
+      <input type="email" id="user-email" placeholder="email@exemplo.com"/>
+    </div>
+    <div class="field">
+      <label>Empresa</label>
+      <input type="text" id="user-company" placeholder="Nome da empresa"/>
+    </div>
+    <input type="hidden" id="user-edit-id"/>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('add-user')" style="color:var(--muted)">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveUser()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"><span class="ti">✓</span><span id="toast-msg"></span></div>
+
+<script src="script.js"></script>
 </body>
 </html>
