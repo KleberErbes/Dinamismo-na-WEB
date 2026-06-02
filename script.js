@@ -98,10 +98,10 @@ function renderUsers(list) {
       <div class="card-title">${escHtml(u.name)}</div>
       <div class="user-info">
         <div class="row"> <strong>${escHtml(u.email)}</strong></div>
-        ${u.phone    ? `<div class="row"> <strong>${escHtml(u.phone)}</strong></div>`        : ''}
-        ${u.website  ? `<div class="row"> <strong>${escHtml(u.website)}</strong></div>`      : ''}
-        ${u.company?.name  ? `<div class="row"> <strong>${escHtml(u.company.name)}</strong></div>` : ''}
-        ${u.address?.city  ? `<div class="row"> <strong>${escHtml(u.address.city)}</strong></div>` : ''}
+        ${u.phone ? `<div class="row"> <strong>${escHtml(u.phone)}</strong></div>` : ''}
+        ${u.website ? `<div class="row"> <strong>${escHtml(u.website)}</strong></div>` : ''}
+        ${u.company?.name ? `<div class="row"> <strong>${escHtml(u.company.name)}</strong></div>` : ''}
+        ${u.address?.city ? `<div class="row"> <strong>${escHtml(u.address.city)}</strong></div>` : ''}
       </div>
       <div class="card-actions">
         <button class="btn btn-edit btn-sm"   onclick="editUser(${u.id})">✏ Editar</button>
@@ -140,8 +140,8 @@ function filterUsers() {
   const q = document.getElementById('search-users').value.toLowerCase();
   renderUsers(
     users.filter(u =>
-      u.name.toLowerCase().includes(q)     ||
-      u.email.toLowerCase().includes(q)    ||
+      u.name.toLowerCase().includes(q) ||
+      u.email.toLowerCase().includes(q) ||
       u.username.toLowerCase().includes(q)
     )
   );
@@ -156,18 +156,18 @@ function openModal(type) {
   // Limpa os campos conforme o modal aberto
   if (type === 'add-post') {
     document.getElementById('modal-post-title').textContent = 'Novo Post';
-    document.getElementById('post-title').value   = '';
-    document.getElementById('post-body').value    = '';
+    document.getElementById('post-title').value = '';
+    document.getElementById('post-body').value = '';
     document.getElementById('post-edit-id').value = '';
   }
 
   if (type === 'add-user') {
     document.getElementById('modal-user-title').textContent = 'Novo Usuário';
-    document.getElementById('user-name').value     = '';
+    document.getElementById('user-name').value = '';
     document.getElementById('user-username').value = '';
-    document.getElementById('user-email').value    = '';
-    document.getElementById('user-company').value  = '';
-    document.getElementById('user-edit-id').value  = '';
+    document.getElementById('user-email').value = '';
+    document.getElementById('user-company').value = '';
+    document.getElementById('user-edit-id').value = '';
   }
 
   document.getElementById(`modal-${type}`).classList.add('open');
@@ -190,8 +190,8 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
 // ============================================================
 
 function savePost() {
-  const title  = document.getElementById('post-title').value.trim();
-  const body   = document.getElementById('post-body').value.trim();
+  const title = document.getElementById('post-title').value.trim();
+  const body = document.getElementById('post-body').value.trim();
   const userId = parseInt(document.getElementById('post-userId').value) || 1;
   const editId = document.getElementById('post-edit-id').value;
 
@@ -204,8 +204,8 @@ function savePost() {
     // Atualiza post existente
     const idx = posts.findIndex(p => p.id == editId);
     if (idx !== -1) {
-      posts[idx].title  = title;
-      posts[idx].body   = body;
+      posts[idx].title = title;
+      posts[idx].body = body;
       posts[idx].userId = userId;
     }
     showToast('Post atualizado!', 'success');
@@ -229,17 +229,17 @@ function editPost(id) {
   if (!post) return;
 
   document.getElementById('modal-post-title').textContent = 'Editar Post';
-  document.getElementById('post-title').value   = post.title;
-  document.getElementById('post-body').value    = post.body;
+  document.getElementById('post-title').value = post.title;
+  document.getElementById('post-body').value = post.body;
   document.getElementById('post-edit-id').value = post.id;
-  document.getElementById('post-userId').value  = post.userId;
+  document.getElementById('post-userId').value = post.userId;
   document.getElementById('modal-add-post').classList.add('open');
 }
 
 const index = posts.findIndex(p => p.id === id);
 
 if (index !== -1) {
-    posts.splice(index, 1);
+  posts.splice(index, 1);
 }
 
 
@@ -248,11 +248,11 @@ if (index !== -1) {
 // ============================================================
 
 function saveUser() {
-  const name     = document.getElementById('user-name').value.trim();
+  const name = document.getElementById('user-name').value.trim();
   const username = document.getElementById('user-username').value.trim();
-  const email    = document.getElementById('user-email').value.trim();
-  const company  = document.getElementById('user-company').value.trim();
-  const editId   = document.getElementById('user-edit-id').value;
+  const email = document.getElementById('user-email').value.trim();
+  const company = document.getElementById('user-company').value.trim();
+  const editId = document.getElementById('user-edit-id').value;
 
   if (!name || !username || !email) {
     showToast('Preencha nome, username e e-mail!', 'error');
@@ -263,10 +263,10 @@ function saveUser() {
     // Atualiza usuário existente
     const idx = users.findIndex(u => u.id == editId);
     if (idx !== -1) {
-      users[idx].name     = name;
+      users[idx].name = name;
       users[idx].username = username;
-      users[idx].email    = email;
-      users[idx].company  = { name: company };
+      users[idx].email = email;
+      users[idx].company = { name: company };
     }
     showToast('Usuário atualizado!', 'success');
 
@@ -296,11 +296,11 @@ function editUser(id) {
   if (!u) return;
 
   document.getElementById('modal-user-title').textContent = 'Editar Usuário';
-  document.getElementById('user-name').value     = u.name;
+  document.getElementById('user-name').value = u.name;
   document.getElementById('user-username').value = u.username;
-  document.getElementById('user-email').value    = u.email;
-  document.getElementById('user-company').value  = u.company?.name || '';
-  document.getElementById('user-edit-id').value  = u.id;
+  document.getElementById('user-email').value = u.email;
+  document.getElementById('user-company').value = u.company?.name || '';
+  document.getElementById('user-edit-id').value = u.id;
   document.getElementById('modal-add-user').classList.add('open');
 }
 
@@ -336,7 +336,7 @@ function switchTab(name, btn) {
 /** Exibe uma notificação temporária no canto inferior direito */
 function showToast(msg, type = 'success') {
   const toast = document.getElementById('toast');
-  const icon  = document.getElementById('toast-icon');
+  const icon = document.getElementById('toast-icon');
 
   // Ajusta classes mantendo controle previsível
   toast.classList.remove('success', 'error');
@@ -347,9 +347,9 @@ function showToast(msg, type = 'success') {
   toast.classList.add('show');
   clearTimeout(toast.timeout);
 
-toast.timeout = setTimeout(() => {
+  toast.timeout = setTimeout(() => {
     toast.classList.remove('show');
-}, 3000);
+  }, 3000);
 }
 
 function escHtml(str) {

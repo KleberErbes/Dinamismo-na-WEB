@@ -2,155 +2,167 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DataHub — JSONPlaceholder Explorer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DataHub — JSONPlaceholder Explorer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<header>
-  <h1 class="logo">Data<span>Hub</span></h1>
-  <div class="status-bar">
-    <div class="dot" id="api-dot"></div>
-    <span id="api-status">Conectando…</span>
-  </div>
-</header>
-
-<main class="container">
-
-  <!-- TABS -->
-  <nav class="tabs" role="tablist" aria-label="Navegação de abas">
-    <button id="tab-btn-posts" class="tab-btn active" role="tab" aria-selected="true" data-tab="posts" aria-controls="tab-posts" onclick="switchTab('posts', this)"> Posts</button>
-    <button id="tab-btn-users" class="tab-btn" role="tab" aria-selected="false" data-tab="users" aria-controls="tab-users" onclick="switchTab('users', this)"> Usuários</button>
-  </nav>
-
-  <!-- ══ ABA POSTS ══ -->
-  <section id="tab-posts" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-posts" aria-hidden="false">
-    <aside class="stats" aria-label="Estatísticas">
-      <div class="stat-card">
-        <div class="stat-label">Total de Posts</div>
-        <div class="stat-value" id="stat-posts">—</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Adicionados</div>
-        <div class="stat-value" id="stat-added" style="color:var(--green)">0</div>
-      </div>
-    </aside>
-
-    <header class="section-header">
-      <h2 class="section-title">Posts <small>GET /posts</small></h2>
-      <div class="section-actions">
-        <input type="text" class="search-box" id="search-posts" placeholder="  Buscar posts…" oninput="filterPosts()"/>
-        <button class="btn btn-primary" onclick="openModal('add-post')">+ Novo Post</button>
-        <button class="btn btn-success" onclick="fetchPosts()">↺ Recarregar</button>
-      </div>
+    <header>
+        <h1 class="logo">Data<span>Hub</span></h1>
     </header>
 
-    <section id="posts-list" aria-live="polite"><div class="loader"><div class="spinner"></div><span>Carregando posts…</span></div></section>
-  </section>
+    <main class="container">
 
-  <!-- ══ ABA USUÁRIOS ══ -->
-  <section id="tab-users" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-users" aria-hidden="true">
-    <aside class="stats" aria-label="Estatísticas">
-      <div class="stat-card">
-        <div class="stat-label">Total de Usuários</div>
-        <div class="stat-value" id="stat-users">—</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Adicionados</div>
-        <div class="stat-value" id="stat-users-added" style="color:var(--green)">0</div>
-      </div>
-    </aside>
+        <!-- TABS -->
+        <nav class="tabs" role="tablist" aria-label="Navegação de abas">
+            <button id="tab-btn-posts" class="tab-btn active" role="tab" aria-selected="true" data-tab="posts"
+                aria-controls="tab-posts" onclick="switchTab('posts', this)"> Posts</button>
+            <button id="tab-btn-users" class="tab-btn" role="tab" aria-selected="false" data-tab="users"
+                aria-controls="tab-users" onclick="switchTab('users', this)"> Usuários</button>
+        </nav>
 
-    <header class="section-header">
-      <h2 class="section-title">Usuários <small>GET /users</small></h2>
-      <div class="section-actions">
-        <input type="text" class="search-box" id="search-users" placeholder="  Buscar usuários…" oninput="filterUsers()"/>
-        <button class="btn btn-primary" onclick="openModal('add-user')">+ Novo Usuário</button>
-        <button class="btn btn-success" onclick="fetchUsers()">↺ Recarregar</button>
-      </div>
-    </header>
+        <!-- ══ ABA POSTS ══ -->
+        <section id="tab-posts" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-posts"
+            aria-hidden="false">
+            <aside class="stats" aria-label="Estatísticas">
+                <div class="stat-card">
+                    <div class="stat-label">Total de Posts</div>
+                    <div class="stat-value" id="stat-posts">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Adicionados</div>
+                    <div class="stat-value" id="stat-added" style="color:var(--green)">0</div>
+                </div>
+            </aside>
 
-    <section id="users-list" aria-live="polite"><div class="loader"><div class="spinner"></div><span>Carregando usuários…</span></div></section>
-  </section>
-</main>
+            <header class="section-header">
+                <h2 class="section-title">Posts <small>GET /posts</small></h2>
+                <div class="section-actions">
+                    <input type="text" class="search-box" id="search-posts" placeholder="  Buscar posts…"
+                        oninput="filterPosts()" />
+                    <button class="btn btn-primary" onclick="openModal('add-post')">+ Novo Post</button>
+                    <button class="btn btn-success" onclick="fetchPosts()">↺ Recarregar</button>
+                </div>
+            </header>
 
-<!-- ══ MODAL — POST ══ -->
-<div class="modal-overlay" id="modal-add-post" onclick="handleOverlayClick(event, 'add-post')">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-post-title">
-    <h3 class="modal-title" id="modal-post-title">Novo Post</h3>
+            <section id="posts-list" aria-live="polite">
+                <div class="loader">
+                    <div class="spinner"></div><span>Carregando posts…</span>
+                </div>
+            </section>
+        </section>
 
-    <form id="form-add-post" novalidate>
+        <!-- ══ ABA USUÁRIOS ══ -->
+        <section id="tab-users" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-users" aria-hidden="true">
+            <aside class="stats" aria-label="Estatísticas">
+                <div class="stat-card">
+                    <div class="stat-label">Total de Usuários</div>
+                    <div class="stat-value" id="stat-users">—</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Adicionados</div>
+                    <div class="stat-value" id="stat-users-added" style="color:var(--green)">0</div>
+                </div>
+            </aside>
 
-      <div class="field">
-      <label for="post-userId">Usuário</label>
-      <select id="post-userId"></select>
+            <header class="section-header">
+                <h2 class="section-title">Usuários <small>GET /users</small></h2>
+                <div class="section-actions">
+                    <input type="text" class="search-box" id="search-users" placeholder="  Buscar usuários…"
+                        oninput="filterUsers()" />
+                    <button class="btn btn-primary" onclick="openModal('add-user')">+ Novo Usuário</button>
+                    <button class="btn btn-success" onclick="fetchUsers()">↺ Recarregar</button>
+                </div>
+            </header>
+
+            <section id="users-list" aria-live="polite">
+                <div class="loader">
+                    <div class="spinner"></div><span>Carregando usuários…</span>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- ══ MODAL — POST ══ -->
+    <div class="modal-overlay" id="modal-add-post" onclick="handleOverlayClick(event, 'add-post')">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-post-title">
+            <h3 class="modal-title" id="modal-post-title">Novo Post</h3>
+
+            <form id="form-add-post" novalidate>
+
+                <div class="field">
+                    <label for="post-userId">Usuário</label>
+                    <select id="post-userId"></select>
+                </div>
+                <div class="field">
+                    <label for="post-title">Título <span class="required">*</span></label>
+                    <input type="text" id="post-title" placeholder="Título do post" maxlength="120" />
+                    <span class="field-error" id="err-post-title"></span>
+                </div>
+                <div class="field">
+                    <label for="post-body">Conteúdo <span class="required">*</span></label>
+                    <textarea id="post-body" placeholder="Conteúdo do post…" maxlength="600"></textarea>
+                    <span class="field-error" id="err-post-body"></span>
+                </div>
+
+                <input type="hidden" id="post-edit-id" />
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('add-post')">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="savePost()">Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="field">
-      <label for="post-title">Título <span class="required">*</span></label>
-      <input type="text" id="post-title" placeholder="Título do post" maxlength="120"/>
-      <span class="field-error" id="err-post-title"></span>
+
+    <!-- ══ MODAL — USUÁRIO ══ -->
+    <div class="modal-overlay" id="modal-add-user" onclick="handleOverlayClick(event, 'add-user')">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-user-title">
+            <h3 class="modal-title" id="modal-user-title">Novo Usuário</h3>
+
+            <form id="form-add-user" novalidate>
+
+                <div class="field">
+                    <label for="user-name">Nome completo <span class="required">*</span></label>
+                    <input type="text" id="user-name" placeholder="Ex: João Silva" maxlength="80" />
+                    <span class="field-error" id="err-user-name"></span>
+                </div>
+                <div class="field">
+                    <label for="user-username">Username <span class="required">*</span></label>
+                    <input type="text" id="user-username" placeholder="@username" maxlength="40" />
+                    <span class="field-error" id="err-user-username"></span>
+                </div>
+                <div class="field">
+                    <label for="user-email">E-mail <span class="required">*</span></label>
+                    <input type="email" id="user-email" placeholder="email@exemplo.com" maxlength="100" />
+                    <span class="field-error" id="err-user-email"></span>
+                </div>
+                <div class="field">
+                    <label for="user-company">Empresa</label>
+                    <input type="text" id="user-company" placeholder="Nome da empresa (opcional)" maxlength="60" />
+                </div>
+
+                <input type="hidden" id="user-edit-id" />
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('add-user')">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="saveUser()">Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="field">
-      <label for="post-body">Conteúdo <span class="required">*</span></label>
-      <textarea id="post-body" placeholder="Conteúdo do post…" maxlength="600"></textarea>
-      <span class="field-error" id="err-post-body"></span>
+
+    <!-- TOAST -->
+    <div id="toast" role="alert" aria-live="assertive">
+        <span class="toast-icon" id="toast-icon">✓</span>
+        <span id="toast-msg"></span>
     </div>
 
-    <input type="hidden" id="post-edit-id"/>
-    <div class="modal-actions">
-      <button type="button" class="btn btn-ghost" onclick="closeModal('add-post')">Cancelar</button>
-      <button type="button" class="btn btn-primary" onclick="savePost()">Salvar</button>
-    </div>
-    </form>
-  </div>
-</div>
-
-<!-- ══ MODAL — USUÁRIO ══ -->
-<div class="modal-overlay" id="modal-add-user" onclick="handleOverlayClick(event, 'add-user')">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-user-title">
-    <h3 class="modal-title" id="modal-user-title">Novo Usuário</h3>
-
-    <form id="form-add-user" novalidate>
-
-      <div class="field">
-        <label for="user-name">Nome completo <span class="required">*</span></label>
-        <input type="text" id="user-name" placeholder="Ex: João Silva" maxlength="80"/>
-        <span class="field-error" id="err-user-name"></span>
-      </div>
-      <div class="field">
-        <label for="user-username">Username <span class="required">*</span></label>
-        <input type="text" id="user-username" placeholder="@username" maxlength="40"/>
-        <span class="field-error" id="err-user-username"></span>
-      </div>
-      <div class="field">
-        <label for="user-email">E-mail <span class="required">*</span></label>
-        <input type="email" id="user-email" placeholder="email@exemplo.com" maxlength="100"/>
-        <span class="field-error" id="err-user-email"></span>
-      </div>
-      <div class="field">
-        <label for="user-company">Empresa</label>
-        <input type="text" id="user-company" placeholder="Nome da empresa (opcional)" maxlength="60"/>
-      </div>
-
-      <input type="hidden" id="user-edit-id"/>
-      <div class="modal-actions">
-        <button type="button" class="btn btn-ghost" onclick="closeModal('add-user')">Cancelar</button>
-        <button type="button" class="btn btn-primary" onclick="saveUser()">Salvar</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div id="toast" role="alert" aria-live="assertive">
-  <span class="toast-icon" id="toast-icon">✓</span>
-  <span id="toast-msg"></span>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
