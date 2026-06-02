@@ -62,7 +62,7 @@ async function fetchUsers() {
         <div class="empty-icon">⚠️</div>
         <p>Erro ao carregar usuários.<br><small>${e.message}</small></p>
       </div>`;
-    showl('Erro ao carregar usuários.', 'error');
+    showToast('Erro ao carregar usuários.', 'error');
   }
 }
 
@@ -343,10 +343,12 @@ function switchTab(name, btn) {
 /** Exibe uma notificação temporária no canto inferior direito */
 function showToast(msg, type = 'success') {
   const toast = document.getElementById('toast');
-  const icon  = toast.querySelector('.ti');
+  const icon  = document.getElementById('toast-icon');
 
-  toast.className         = type;
-  icon.textContent        = type === 'success' ? '✓' : '✕';
+  // Ajusta classes mantendo controle previsível
+  toast.classList.remove('success', 'error');
+  toast.classList.add(type);
+  icon.textContent = type === 'success' ? '✓' : '✕';
   document.getElementById('toast-msg').textContent = msg;
 
   toast.classList.add('show');

@@ -158,8 +158,8 @@
       display: flex; align-items: center; gap: 8px;
     }
     #toast.show { transform: translateY(0); opacity: 1; }
-    #toast.success .ti { color: var(--green); }
-    #toast.error .ti { color: var(--red); }
+    #toast.success .toast-icon { color: var(--green); }
+    #toast.error .toast-icon { color: var(--red); }
 
     /* ── STATS ── */
     .stats { display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
