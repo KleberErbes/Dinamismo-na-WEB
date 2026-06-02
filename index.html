@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dinamismo na WEB — JSONPlaceholder </title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="style.css"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
     <header>
@@ -17,14 +21,12 @@
     </header>
 
     <main class="container">
-
         <nav class="tabs">
             <button class="tab-btn active" onclick="switchTab('posts', this)">📄 Posts</button>
             <button class="tab-btn" onclick="switchTab('users', this)">👤 Usuários</button>
         </nav>
 
         <section id="tab-posts" class="tab-panel active">
-
             <section class="stats">
                 <article class="stat-card">
                     <div class="stat-label">Posts</div>
@@ -32,12 +34,11 @@
 
                 <article class="stat-card">
                     <div class="stat-label">Adicionados</div>
+                </article>
             </section>
-
         </section>
-
     </main>
-    
-    <script src="script.js"></script>
 </body>
+<script src="script.js"></script>
+
 </html>
