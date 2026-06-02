@@ -85,7 +85,7 @@ function renderUsers(list) {
 
   if (!list.length) {
     container.innerHTML =
-      `<div class="empty"><div class="empty-icon">👻</div><p>Nenhum usuário encontrado.</p></div>`;
+      `<div class="empty"><div class="empty-icon"></div><p>Nenhum usuário encontrado.</p></div>`;
     return;
   }
 
@@ -97,7 +97,7 @@ function renderUsers(list) {
       </div>
       <div class="card-title">${escHtml(u.name)}</div>
       <div class="user-info">
-        <div class="row">📧 <strong>${escHtml(u.email)}</strong></div>
+        <div class="row"> <strong>${escHtml(u.email)}</strong></div>
         ${u.phone    ? `<div class="row"> <strong>${escHtml(u.phone)}</strong></div>`        : ''}
         ${u.website  ? `<div class="row"> <strong>${escHtml(u.website)}</strong></div>`      : ''}
         ${u.company?.name  ? `<div class="row"> <strong>${escHtml(u.company.name)}</strong></div>` : ''}

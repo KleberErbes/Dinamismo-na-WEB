@@ -23,8 +23,8 @@
 
   <!-- TABS -->
   <nav class="tabs" role="tablist" aria-label="Navegação de abas">
-    <button id="tab-btn-posts" class="tab-btn active" role="tab" aria-selected="true" data-tab="posts" aria-controls="tab-posts" onclick="switchTab('posts', this)">📄 Posts</button>
-    <button id="tab-btn-users" class="tab-btn" role="tab" aria-selected="false" data-tab="users" aria-controls="tab-users" onclick="switchTab('users', this)">👤 Usuários</button>
+    <button id="tab-btn-posts" class="tab-btn active" role="tab" aria-selected="true" data-tab="posts" aria-controls="tab-posts" onclick="switchTab('posts', this)"> Posts</button>
+    <button id="tab-btn-users" class="tab-btn" role="tab" aria-selected="false" data-tab="users" aria-controls="tab-users" onclick="switchTab('users', this)"> Usuários</button>
   </nav>
 
   <!-- ══ ABA POSTS ══ -->
@@ -43,7 +43,7 @@
     <header class="section-header">
       <h2 class="section-title">Posts <small>GET /posts</small></h2>
       <div class="section-actions">
-        <input type="text" class="search-box" id="search-posts" placeholder="🔍  Buscar posts…" oninput="filterPosts()"/>
+        <input type="text" class="search-box" id="search-posts" placeholder="  Buscar posts…" oninput="filterPosts()"/>
         <button class="btn btn-primary" onclick="openModal('add-post')">+ Novo Post</button>
         <button class="btn btn-success" onclick="fetchPosts()">↺ Recarregar</button>
       </div>
@@ -68,7 +68,7 @@
     <header class="section-header">
       <h2 class="section-title">Usuários <small>GET /users</small></h2>
       <div class="section-actions">
-        <input type="text" class="search-box" id="search-users" placeholder="🔍  Buscar usuários…" oninput="filterUsers()"/>
+        <input type="text" class="search-box" id="search-users" placeholder="  Buscar usuários…" oninput="filterUsers()"/>
         <button class="btn btn-primary" onclick="openModal('add-user')">+ Novo Usuário</button>
         <button class="btn btn-success" onclick="fetchUsers()">↺ Recarregar</button>
       </div>
