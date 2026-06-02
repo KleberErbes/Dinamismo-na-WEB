@@ -1,23 +1,7 @@
-// ============================================================
-//  DataHub — JSONPlaceholder Explorer
-//  script.js
-// ============================================================
-
-
-// ============================================================
-//  ESTADO GLOBAL
-//  Armazena os dados em memória e controla IDs locais
-// ============================================================
-
 let posts = [];
 let users = [];
 let nextPostId = 200;   // IDs locais para posts criados pelo usuário
 let nextUserId = 20;    // IDs locais para usuários criados pelo usuário
-
-
-// ============================================================
-//  FETCH — Requisições à API
-// ============================================================
 
 async function fetchPosts() {
   document.getElementById('posts-list').innerHTML =
@@ -133,13 +117,23 @@ function renderUsers(list) {
 // ============================================================
 
 function filterPosts() {
-  const q = document.getElementById('search-posts').value.toLowerCase();
-  renderPosts(
-    posts.filter(p =>
-      p.title.toLowerCase().includes(q) ||
-      p.body.toLowerCase().includes(q)
-    )
+  const search = document
+    .getElementById('search-posts')
+    .value
+    .trim()
+    .toLowerCase();
+
+  if (!search) {
+    renderPosts(posts);
+    return;
+  }
+
+  const filtered = posts.filter(post =>
+    post.title.toLowerCase().includes(search) ||
+    post.body.toLowerCase().includes(search)
   );
+
+  renderPosts(filtered);
 }
 
 function filterUsers() {
@@ -242,11 +236,10 @@ function editPost(id) {
   document.getElementById('modal-add-post').classList.add('open');
 }
 
-function deletePost(id) {
-  posts = posts.filter(p => p.id !== id);
-  document.getElementById('stat-posts').textContent = posts.length;
-  filterPosts();
-  showToast('Post removido.', 'success');
+const index = posts.findIndex(p => p.id === id);
+
+if (index !== -1) {
+    posts.splice(index, 1);
 }
 
 
@@ -352,10 +345,13 @@ function showToast(msg, type = 'success') {
   document.getElementById('toast-msg').textContent = msg;
 
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 3000);
+  clearTimeout(toast.timeout);
+
+toast.timeout = setTimeout(() => {
+    toast.classList.remove('show');
+}, 3000);
 }
 
-/** Escapa caracteres HTML para evitar XSS */
 function escHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
@@ -364,15 +360,9 @@ function escHtml(str) {
     .replace(/"/g, '&quot;');
 }
 
-/** Coloca a primeira letra em maiúsculo */
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-
-// ============================================================
-//  INICIALIZAÇÃO — Executado ao carregar a página
-// ============================================================
 
 fetchPosts();
 fetchUsers();
