@@ -35,7 +35,7 @@ async function fetchPosts() {
   } catch (e) {
     document.getElementById('posts-list').innerHTML =
       `<div class="empty">
-        <div class="empty-icon">⚠️</div>
+        <div class="empty-icon"></div>
         <p>Erro ao carregar posts.<br><small>${e.message}</small></p>
       </div>`;
     showToast('Erro ao carregar posts.', 'error');
@@ -114,10 +114,10 @@ function renderUsers(list) {
       <div class="card-title">${escHtml(u.name)}</div>
       <div class="user-info">
         <div class="row">📧 <strong>${escHtml(u.email)}</strong></div>
-        ${u.phone    ? `<div class="row">📞 <strong>${escHtml(u.phone)}</strong></div>`        : ''}
-        ${u.website  ? `<div class="row">🌐 <strong>${escHtml(u.website)}</strong></div>`      : ''}
-        ${u.company?.name  ? `<div class="row">🏢 <strong>${escHtml(u.company.name)}</strong></div>` : ''}
-        ${u.address?.city  ? `<div class="row">📍 <strong>${escHtml(u.address.city)}</strong></div>` : ''}
+        ${u.phone    ? `<div class="row"> <strong>${escHtml(u.phone)}</strong></div>`        : ''}
+        ${u.website  ? `<div class="row"> <strong>${escHtml(u.website)}</strong></div>`      : ''}
+        ${u.company?.name  ? `<div class="row"> <strong>${escHtml(u.company.name)}</strong></div>` : ''}
+        ${u.address?.city  ? `<div class="row"> <strong>${escHtml(u.address.city)}</strong></div>` : ''}
       </div>
       <div class="card-actions">
         <button class="btn btn-edit btn-sm"   onclick="editUser(${u.id})">✏ Editar</button>
