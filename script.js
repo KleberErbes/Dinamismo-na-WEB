@@ -62,7 +62,7 @@ async function fetchUsers() {
         <div class="empty-icon">⚠️</div>
         <p>Erro ao carregar usuários.<br><small>${e.message}</small></p>
       </div>`;
-    showToast('Erro ao carregar usuários.', 'error');
+    showl('Erro ao carregar usuários.', 'error');
   }
 }
 
